@@ -3,4 +3,5 @@
 
 # Whitelist some files
 !.gitignore
-##!README.md
+!README.md
+!autostart/
