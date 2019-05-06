@@ -1,0 +1,16 @@
+#!/bin/bash
+bspc subscribe monitor | while read -r line; do
+  case $line in
+    monitor_add*|monitor_geometry*)
+      if [ "$(bspc query -M | wc -l)" -eq "2" ]; then
+        $HOME/.config/bspwm/bspwm_reorder
+        $HOME/.config/polybar/launch
+      else
+        $HOME/.config/bspwm/bspwm_reorder
+        $HOME/.config/polybar/launch
+      fi
+      ;;
+    *)
+    ;;
+  esac
+done &

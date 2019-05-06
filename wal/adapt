@@ -1,0 +1,9 @@
+#!/bin/sh
+
+mydir=$(sed -n 2p ~/.fehbg | awk '{split($0,a,"/"); print a[6]}')
+myfile=$(sed -n 2p ~/.fehbg | awk '{split($0,a,"/"); print a[7]}' | sed 's/..$//')
+.local/bin/wal -i Pictures/Wallpapers/$mydir/$myfile
+
+
+myfile=$(sed -n 2p ~/.fehbg | awk '{split($0,a,"/"); print a[7]}' | sed 's/...$//')
+.local/bin/wal -i Pictures/Wallpapers/$mydir/$myfile

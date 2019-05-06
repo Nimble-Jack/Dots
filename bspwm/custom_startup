@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Widow Apps
+bspc desktop --focus ^7 && (opera &) && sleep 3
+bspc desktop --focus ^6 && (atom &) && sleep 5
+
+bspc desktop --focus ^1 && (slack &) && sleep 10
+bspc desktop --focus ^1 && google-chrome

@@ -1,0 +1,69 @@
+#!/bin/sh
+
+#Bspwm with Dual Monitors & auto switching
+# ---------------------------------------
+#Configures Base Case
+if [ "$(bspc query -M | wc -l)" -eq "2" ]; then
+  bspc monitor eDP1  -d 1 2 3 4 5
+  bspc monitor DP1 -d 6 7 8 9 0
+
+else
+  bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 0
+fi
+
+#Re-aligns windows
+if [ -x $HOME/.config/bspwm/custom_monitor_location ];then
+  $HOME/.config/bspwm/custom_monitor_location
+fi
+
+# Launches Polybar
+if [ -x $HOME/.config/polybar/launch ];then
+  $HOME/.config/polybar/launch
+fi
+
+#Auto Window Management
+$HOME/.config/bspwm/custom_auto_adjust
+
+#Window rules
+# ---------------------------------------
+bspc config border_width         2
+bspc config window_gap          12
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focus_follows_pointer true
+
+#Color settings
+# ---------------------------------------
+bspc config focused_border_color "#c65227"
+#"#f8f8f2"
+bspc config normal_border_color "#282936"
+
+#Hot Keys
+# ---------------------------------------
+sxhkd &
+
+# Windowless Apps
+fluxgui &
+
+# Composting manager
+$HOME/.config/compton/launch &
+
+#Sets background image
+# ---------------------------------------
+~/.fehbg
+
+#Sets terminal to match color scheme of background
+# ---------------------------------------
+#mydir=$(sed -n 2p ~/.fehbg | awk '{split($0,a,"/"); print a[6]}')
+#myfile=$(sed -n 2p ~/.fehbg | awk '{split($0,a,"/"); print a[7]}' | sed 's/..$//')
+#.local/bin/wal -i Pictures/Wallpapers/$mydir/$myfile
+$HOME/.config/wal/adapt
+
+#Start panel ???
+# ---------------------------------------
+#panel &
+
+# Startup Apps
+# ---------------------------------------
+$HOME/.config/bspwm/custom_startup

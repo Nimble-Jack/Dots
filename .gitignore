@@ -5,3 +5,10 @@
 !.gitignore
 !README.md
 !autostart/
+!bspwm/
+!compton/
+!neofetch/
+!polybar/
+!ranger/
+!sxhkd/
+!wal/

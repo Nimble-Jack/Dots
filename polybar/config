@@ -1,0 +1,295 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;==========================================================
+
+[colors]
+background = #222
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+active = #26DBFC
+secondary = #e60053
+alert = #bd2c40
+
+; Base 16
+base00 = #1C2023
+base01 = #393F45
+base02 = #565E65
+base03 = #747C84
+base04 = #ADB3BA
+base05 = #C7CCD1
+base06 = #DFE2E5
+base07 = #F3F4F5
+base08 = #C7AE95
+base09 = #C7C795
+base0A = #AEC795
+base0B = #95C7AE
+base0C = #95AEC7
+base0D = #AE95C7
+base0E = #C795AE
+base0F = #C79595
+
+; Translucent
+alpha-base00 = #F21C2023
+alpha-base01 = #F2393F45
+alpha-base0E = #BFC795AE
+alpha-alert  = #BFAF5454
+
+; Others
+normal = ${colors.base0A}
+warn = ${colors.base08}
+
+;--------------------------------------------------------------------;
+; Laptop
+;--------------------------------------------------------------------;
+[bar/laptop]
+inherit = common/bar
+monitor = eDP1
+
+modules-left = bspwm gap
+modules-center = date
+modules-right = vpnStatus wlan xbacklight alsa battery
+
+[bar/bottom-l]
+inherit = common/bottom
+monitor = eDP1
+
+;--------------------------------------------------------------------;
+; External
+;--------------------------------------------------------------------;
+[bar/external]
+inherit = common/bar
+;monitor = HDMI1
+
+modules-left = bspwm gap
+modules-center = date
+modules-right = vpnStatus wlan alsa battery
+
+[bar/bottom-e]
+inherit = common/bottom
+;monitor = HDMI1
+
+;--------------------------------------------------------------------;
+; Common
+;--------------------------------------------------------------------;
+[common/bar]
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 2
+line-color = #f00
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Overpass:style=light-italic:pixelsize=12;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+#Private Use Area
+font-2 = FontAwesome:pixelsize=13;1
+font-3 = wuncon siji:pixelsize=10;1
+
+wm-restack = bspwm
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+width = 100%
+height = 27
+fixed-center = false
+tray-position = right
+tray-padding = 2
+
+[common/bottom]
+inherit = common/bar
+width = 50%
+height = 25
+bottom = true
+modules-center = title
+
+tray-position =  "     "
+offset-x = 25%
+offset-y = 0
+font-0 = Overpass:style=light-italic:pixelsize=12;1
+
+;--------------------------------------------------------------------;
+; modules
+;--------------------------------------------------------------------;
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = true
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.active}
+label-focused-padding = 2
+label-occupied = %name%
+label-occupied-padding = 2
+label-urgent = %name%!
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+label-empty = %name%
+label-empty-foreground = ${colors.foreground-alt}
+label-empty-padding = 2
+
+
+[module/title]
+type = internal/xwindow
+format-padding = 0
+format-foreground = ${colors.base0C}
+label = %title%
+label-maxlen = 140
+label-font   = 0
+label-empty = Empty
+label-empty-foreground = #707880
+
+
+[module/vpnStatus]
+type = custom/script
+exec = $HOME/.config/polybar/custom/vpnStatus
+interval = 5
+format-foreground = #b5af4c
+label = %output%
+
+
+[module/xbacklight]
+type = internal/xbacklight
+format-foreground = #a5a2a2
+format = <label> <bar>
+label = 
+bar-width = 10
+bar-indicator = |
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+
+[module/alsa]
+type = internal/alsa
+format-volume = <label-volume> <bar-volume>
+label-volume = 
+label-volume-foreground = ${root.foreground}
+format-muted-foreground = ${colors.foreground-alt}
+label-muted =  Sound Muted
+bar-volume-width = 10
+bar-volume-foreground-0 = #1C2023
+bar-volume-foreground-1 = #1C2023
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+label-charging =  %percentage%%
+label-discharging =  %percentage%%
+label-full = 
+format-charging-underline = #ff7f50
+format-discharging-underline = #FC26F5
+
+
+[module/date]
+type = internal/date
+interval = 5
+date = %b %d 20%g
+time = %I:%M %p
+label = "%date%     %time%"
+
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+format-connected-foreground = #95AEC7
+format-connected = <label-connected> <ramp-signal>
+format-disconnected-foreground = #C795AE
+format-disconnected = <label-disconnected>
+label-connected = %{A:unity-control-center network&:}%essid::10:..%%{A}
+label-disconnected = %{A:unity-control-center network&:}down%{A}
+label-wifi = %{A:nm-applet&:}%{A}
+ramp-signal-foreground = #95AEC7
+ramp-signal-0 = 
+
+
+
+[module/smallgap]
+type = custom/text
+content = " "
+
+
+[module/gap]
+type = custom/text
+content = "      "
+
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+; vim:ft=dosini
+
+
+;-------------------
+;  Not used
+;-------------------
+
+[module/vpnStatus2]
+type = custom/script
+exec = echo 
+exec-if = pgrep -x openvpn
+interval = 5
+format-underline = #45f442
+label = %output%
+
+[module/vpnButton]
+type = custom/script
+exec = echo 
+click-left = touch buton.txt
+
+[module/redshift]
+type = custom/script
+exec = ~/.config/polybar/custom/rsctl -p
+interval = 5
+click-left = ~/.config/polybar/custom/rsctl -t

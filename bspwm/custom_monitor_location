@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# set up the two monitors for bspwm
+# This is a simplistic approach because I already know the settings I want to apply.
+#ultra_wide=$(xrandr --query | grep 'DP1 connected 3440x1440')
+#acer_sb=$(xrandr --query | grep 'HDMI1 connected 1920x1080')
+# acer_home=$(xrandr --query | grep 'HDMI1 connected ???')
+
+DP1_mode=`xrandr -q | grep -v '^e' | grep DP1 | awk '{ print $3 }' | cut -f1 -d"+"`
+
+
+if [ "$(bspc query -M | wc -l)" -eq "2" ]; then
+  xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output DP1 --mode $DP1_mode --rotate normal --right-of eDP1
+fi

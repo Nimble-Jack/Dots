@@ -1,0 +1,177 @@
+# quit bspwm normally
+alt + ctrl + Escape
+	bspc quit
+
+# Polybar Restart
+alt + ctrl + super + p
+	$HOME/.config/polybar/launch
+
+################################################################################
+# Moving Monitors
+################################################################################
+
+# Focus the next monitor
+super + Tab
+	bspc monitor -f next
+
+################################################################################
+# Moving Desktops
+################################################################################
+
+# Focus the next/previous desktop in the current monitor
+alt + shift + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# Focus to the given desktop
+alt + space; {1-9,0}
+	bspc desktop -f '^{1-9,10}'
+
+################################################################################
+# Moving Node(s)
+################################################################################
+
+# Focus or {move} the node in the given direction
+alt + {_,shift + } bracket{left,right}
+	bspc node -{f,s} {west,east}
+
+alt + {_,shift + } {p,backslash}
+	bspc node -{f,s} {south,north}
+
+# Send to the given desktop
+alt + space + {1-9,0}
+	bspc node -d '^{1-9,10}'
+
+# Send to the prev/next desktop
+alt + space; bracket{left,right}
+	bspc node -d {prev,next}
+
+# Focus the next node
+alt + Tab
+	bspc node -f next.local
+
+# Focus the previous node
+alt + shift + Tab
+	bspc node -f prev.local
+
+################################################################################
+# Altering Windows [alt]
+################################################################################
+
+# rotate 90 degrees
+alt + shift + r
+	bspc node @/ -R 90
+
+# flip parent node
+alt + shift + v
+	bspc node @parent --flip vertical
+alt + shift + h
+	bspc node @parent --flip horizontal
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# expand a window by moving one of its side outward
+alt + super + {Left,Down,Up,Right}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# window gap
+alt + super + {equal,minus}
+	bspc config window_gap $(( $(bspc config window_gap) {-,+} 5 ))
+
+################################################################################
+# Inserting Windows [alt]
+################################################################################
+
+# insert node in a direction
+super + {Left,Down,Up,Right}
+	bspc node -n {west,south,north,east}
+
+# preselect the direction
+ctrl + super + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+ctrl + super {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the Focused desktop
+ctrl + space + super
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+################################################################################
+# Misc
+################################################################################
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# kill node
+alt + super + q
+	bspc node -k
+
+# terminal emulator
+super + Return
+	urxvt
+
+# Google chrome
+super + g
+	google-chrome
+
+# program launcher
+super + space
+	dmenu_run
+
+# Nautilus (file browser)
+ctrl + super + Return
+	nautilus
+
+#13lock
+super + l
+	i3lock -i ~/Pictures/Wallpapers/png/mojave_enhanced.png
+
+# Disable touchpad
+super + F1
+	xinput --disable 15
+
+# Enable touchpad
+super + alt + F1
+	xinput --enable 15
+
+################################################################################
+# Media Keys
+################################################################################
+
+# Brightness Control
+XF86MonBrightnessDown
+xbacklight -dec 10
+
+XF86MonBrightnessUp
+xbacklight -inc 10
+
+#Volume Control
+XF86AudioLowerVolume
+amixer set Master 5%-
+
+XF86AudioRaiseVolume
+amixer set Master 5%+
+
+XF86AudioMute
+amixer set Master toggle
+
+# Screenshots
+alt + super + @space
+gnome-screenshot -a
+
+# Fix low sound
+alt + super + s
+online-accounts-preferences
+
+################################################################################
+# New
+################################################################################

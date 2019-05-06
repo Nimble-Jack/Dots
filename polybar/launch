@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Terminate already running bar instances
+killall -q polybar
+
+# Wait until the processes have been shut down
+while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+
+# Launch bar1 and bar2
+#MONITOR=eDP-1 polybar -r default &
+#MONITOR=HDMI-1 polybar -r default &
+
+##old
+#query=`bspc query -M --names`
+#read -a monitors <<<$query
+
+#if [[ ${#monitors[@]} == 1 ]]; then
+#  MONITOR=${monitors[0]} polybar -r default &
+#  polybar -r laptop &
+#  polybar -r bottom-l &
+#else
+#  for monitor in ${monitors[@]}; do
+#    MONITOR=$monitor polybar -r default &
+#  done
+#fi
+
+#echo "Bars launched..."
+
+# Launch bar
+polybar -r laptop &
+polybar -r bottom-l &
+
+my_laptop_external_monitor=$(xrandr -q | grep -v '^e' | grep DP1)
+if [[ $my_laptop_external_monitor = *connected* ]]; then
+    MONITOR=DP1 polybar -r external &
+    MONITOR=DP1 polybar -r bottom-e &
+fi
+
+my_laptop_external_monitor=$(xrandr --query | grep 'HDMI1 connected')
+if [[ $my_laptop_external_monitor = *connected* ]]; then
+    MONITOR=HDMI1 polybar -r external &
+    MONITOR=HDMI1 polybar -r bottom-e &
+fi
