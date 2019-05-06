@@ -1,9 +1,10 @@
-# Dot Files  
-These are my dot files for Ubuntu 16.04
-  - bspwm *issue with last desktop on external monitor not being added to laptop* 
-  - compton
+# Dot Files
+# Ubuntu 16.04
+  - autostart
+  - bspwm
+  - compton # Cant be running while zoom is trying to share screen, all dark 
   - neofetch
   - polybar
   - ranger
   - sxhkd
-  - Xresources
+  - wal
