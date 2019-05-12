@@ -115,13 +115,14 @@ tray-padding = 2
 
 [common/bottom]
 inherit = common/bar
-width = 50%
+width = 100%
 height = 25
 bottom = true
 modules-center = title
+;modules-right = cpu gap memory
 
-tray-position =  "     "
-offset-x = 25%
+
+offset-x = 0
 offset-y = 0
 font-0 = Overpass:style=light-italic:pixelsize=12;1
 
@@ -145,15 +146,13 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 
-[module/title]
-type = internal/xwindow
-format-padding = 0
-format-foreground = ${colors.base0C}
-label = %title%
-label-maxlen = 140
-label-font   = 0
-label-empty = Empty
-label-empty-foreground = #707880
+[module/date]
+type = internal/date
+interval = 5
+date = %b %d 20%g
+time = %I:%M %p
+label = "%date%     %time%"
+
 
 
 [module/vpnStatus]
@@ -162,6 +161,14 @@ exec = $HOME/.config/polybar/custom/vpnStatus
 interval = 5
 format-foreground = #b5af4c
 label = %output%
+
+
+[module/wired-network]
+type = internal/network
+interface = net0
+interval = 3.0
+label-connected =   %{T3}%local_ip%%{T-}
+label-disconnected-foreground = #66
 
 
 [module/xbacklight]
@@ -224,14 +231,6 @@ format-charging-underline = #ff7f50
 format-discharging-underline = #FC26F5
 
 
-[module/date]
-type = internal/date
-interval = 5
-date = %b %d 20%g
-time = %I:%M %p
-label = "%date%     %time%"
-
-
 [module/wlan]
 type = internal/network
 interface = wlp2s0
@@ -245,7 +244,6 @@ label-disconnected = %{A:unity-control-center network&:}down%{A}
 label-wifi = %{A:nm-applet&:}%{A}
 ramp-signal-foreground = #95AEC7
 ramp-signal-0 = 
-
 
 
 [module/smallgap]
@@ -265,10 +263,35 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 
+
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-; vim:ft=dosini
+;vim:ft=dosini
+
+
+[module/title]
+type = internal/xwindow
+format-padding = 0
+format-foreground = ${colors.base0C}
+label = %title%
+label-maxlen = 140
+label-font   = 0
+label-empty = Empty
+label-empty-foreground = #707880
+
+
+[module/memory]
+type = internal/memory
+format = <label>
+label = RAM: %gb_used%/%gb_free%
+
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+label = CPU: %percentage%%
 
 
 ;-------------------
@@ -293,3 +316,11 @@ type = custom/script
 exec = ~/.config/polybar/custom/rsctl -p
 interval = 5
 click-left = ~/.config/polybar/custom/rsctl -t
+
+
+[module/myBattery]
+type = custom/script
+exec = $HOME/.config/polybar/custom/myBattery
+interval = 5
+label = %output%
+format-foreground = #b5af4c

@@ -27,17 +27,17 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 #echo "Bars launched..."
 
 # Launch bar
-polybar -r laptop &
-polybar -r bottom-l &
-
 my_laptop_external_monitor=$(xrandr -q | grep -v '^e' | grep DP1)
 if [[ $my_laptop_external_monitor = *connected* ]]; then
     MONITOR=DP1 polybar -r external &
     MONITOR=DP1 polybar -r bottom-e &
-fi
 
 my_laptop_external_monitor=$(xrandr --query | grep 'HDMI1 connected')
-if [[ $my_laptop_external_monitor = *connected* ]]; then
+elif [[ $my_laptop_external_monitor = *connected* ]]; then
     MONITOR=HDMI1 polybar -r external &
     MONITOR=HDMI1 polybar -r bottom-e &
+
+else
+  polybar -r laptop &
+  polybar -r bottom-l &
 fi
