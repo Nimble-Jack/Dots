@@ -5,10 +5,10 @@
 #Configures Base Case
 if [ "$(bspc query -M | wc -l)" -eq "2" ]; then
   bspc monitor eDP1  -d 1 2 3 4 5
-  bspc monitor DP1 -d 6 7 8 9 0
+  bspc monitor DP1 -d 6 7 8 9 10
 
 else
-  bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 0
+  bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10
 fi
 
 #Re-aligns windows
