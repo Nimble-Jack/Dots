@@ -6,6 +6,7 @@
 !README.md
 !autostart/
 !bspwm/
+!Code/User/
 !compton/
 !neofetch/
 !polybar/
@@ -15,6 +16,4 @@
 !wal/
 
 # Whitelist some files
-!Code/User/keybindings.json
-!Code/User/settings.json
 !xresource_file
