@@ -1,21 +1,3 @@
-;==========================================================
-;
-;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-;
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;
-;==========================================================
-
 [colors]
 background = #222
 background-alt = #444
@@ -55,37 +37,47 @@ normal = ${colors.base0A}
 warn = ${colors.base08}
 
 ;--------------------------------------------------------------------;
-; Laptop
+; Multi Monitors - No Need to edit these - These are locations only
 ;--------------------------------------------------------------------;
-[bar/laptop]
-inherit = common/bar
+[bar/laptop-top]
+inherit = bar/above
 monitor = eDP1
 
-modules-left = bspwm gap
+[bar/laptop-bottom]
+inherit = bar/bottom
+monitor = eDP1
+
+
+[bar/external-top]
+inherit = bar/above
+monitor = DP1
+
+[bar/external-bottom]
+inherit = bar/bottom
+monitor = DP1
+
+;--------------------------------------------------------------------;
+; Top Bars
+;--------------------------------------------------------------------;
+[bar/above]
+inherit = common/bar
+modules-left = bspwm
 modules-center = date
 modules-right = vpnStatus wlan xbacklight alsa battery
 
-[bar/bottom-l]
-inherit = common/bottom
-monitor = eDP1
-
 ;--------------------------------------------------------------------;
-; External
+; Bottom Bars
 ;--------------------------------------------------------------------;
-[bar/external]
+[bar/bottom]
 inherit = common/bar
-;monitor = HDMI1
-
-modules-left = bspwm gap
-modules-center = date
-modules-right = vpnStatus wlan alsa battery
-
-[bar/bottom-e]
-inherit = common/bottom
-;monitor = HDMI1
+height = 25
+bottom = true
+modules-center = title
+modules-right = memory gap
+modules-left = gap files google opera
 
 ;--------------------------------------------------------------------;
-; Common
+; Common Bars
 ;--------------------------------------------------------------------;
 [common/bar]
 background = ${colors.background}
@@ -118,7 +110,7 @@ inherit = common/bar
 width = 100%
 height = 25
 bottom = true
-modules-center = title
+;modules-center = title
 ;modules-right = cpu gap memory
 ;modules-left = powermenu mpd
 
@@ -126,8 +118,9 @@ offset-x = 0
 offset-y = 0
 font-0 = Overpass:style=light-italic:pixelsize=12;1
 
+
 ;--------------------------------------------------------------------;
-; modules
+; Modules
 ;--------------------------------------------------------------------;
 
 ;----------------------------TOP-------------------------
@@ -146,7 +139,6 @@ label-urgent-padding = 2
 label-empty = %name%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
-
 
 [module/date]
 type = internal/date
@@ -234,6 +226,21 @@ format-discharging-underline = #FC26F5
 
 
 ;----------------------------BOTTOM-------------------------
+[module/files]
+type = custom/text
+content = ""
+click-left = exec nautilus &
+
+[module/google]
+type = custom/text
+content = ""
+click-left = exec google-chrome &
+
+[module/opera]
+type = custom/text
+content = ""
+click-left = exec opera &
+
 [module/title]
 type = internal/xwindow
 format-padding = 0
@@ -244,6 +251,10 @@ label-font   = 0
 label-empty = Empty
 label-empty-foreground = #707880
 
+[module/memory]
+type = internal/memory
+format = <label>
+label = RAM: %gb_used%/%gb_free%
 
 ;----------------------------OTHER-------------------------
 [module/smallgap]
@@ -271,11 +282,6 @@ margin-bottom = 5
 
 
 ;----------------------------NOT USED-------------------------
-[module/memory]
-type = internal/memory
-format = <label>
-label = RAM: %gb_used%/%gb_free%
-
 
 [module/cpu]
 type = internal/cpu
@@ -287,62 +293,27 @@ label = CPU: %percentage%%
 [module/powermenu]
 type = custom/menu
 
-format-padding = 5
+format-spacing = 1
+label-open = 
+label-close = Cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
 
-label-open = 
-label-close = 
-
-menu-0-0 = Terminate WM
-menu-0-0-foreground = #fba922
-menu-0-0-exec = bspc quit -1
-menu-0-1 = Reboot
-menu-0-1-foreground = #fba922
-menu-0-1-exec = menu_open-1
-menu-0-2 = Power off
-menu-0-2-foreground = #fba922
-menu-0-2-exec = menu_open-2
+menu-0-0 = Reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
 
 menu-1-0 = Cancel
-menu-1-0-foreground = #fba922
-menu-1-0-exec = menu_open-0
-menu-1-1 = Reboot
-menu-1-1-foreground = #fba922
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
 menu-1-1-exec = sudo reboot
 
-menu-2-0 = Power off
-menu-2-0-foreground = #fba922
+menu-2-0 = Power Off
 menu-2-0-exec = sudo poweroff
-menu-2-1 = Cancel
-menu-2-1-foreground = #fba922
-menu-2-1-exec = menu_open-0
-
-
-[module/vpnStatus2]
-type = custom/script
-exec = echo 
-exec-if = pgrep -x openvpn
-interval = 5
-format-underline = #45f442
-label = %output%
-
-[module/vpnButton]
-type = custom/script
-exec = echo 
-click-left = touch buton.txt
-
-[module/redshift]
-type = custom/script
-exec = ~/.config/polybar/custom/rsctl -p
-interval = 5
-click-left = ~/.config/polybar/custom/rsctl -t
-
-
-[module/myBattery]
-type = custom/script
-exec = $HOME/.config/polybar/custom/myBattery
-interval = 5
-label = %output%
-format-foreground = #b5af4c
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
 
 
 [module/wired-network]
@@ -377,9 +348,3 @@ bar-progress-fill-font = 3
 bar-progress-empty = ─
 bar-progress-empty-font = 3
 bar-progress-empty-foreground = #44
-
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight

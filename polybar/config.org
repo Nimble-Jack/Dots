@@ -61,7 +61,7 @@ warn = ${colors.base08}
 inherit = common/bar
 monitor = eDP1
 
-modules-left = bspwm gap title
+modules-left = bspwm gap
 modules-center = date
 modules-right = vpnStatus wlan xbacklight alsa battery
 
@@ -72,100 +72,93 @@ monitor = eDP1
 ;--------------------------------------------------------------------;
 ; External
 ;--------------------------------------------------------------------;
-[bar/external]
+[bar/yolo]
 inherit = common/bar
-monitor = HDMI1
+;monitor = HDMI1
 
-modules-left = bspwm gap title
+modules-left = bspwm gap files
 modules-center = date
 modules-right = vpnStatus wlan alsa battery
 
 [bar/bottom-e]
 inherit = common/bottom
-monitor = HDMI1
+;monitor = HDMI1
 
 ;--------------------------------------------------------------------;
 ; Common
 ;--------------------------------------------------------------------;
 [common/bar]
-width = 100%
-height = 27
-fixed-center = false
-
 background = ${colors.background}
 foreground = ${colors.foreground}
-
 line-size = 2
 line-color = #f00
-
 module-margin-left = 1
 module-margin-right = 2
 
-
 font-0 = Overpass:style=light-italic:pixelsize=12;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-#Private Use Area
 font-2 = FontAwesome:pixelsize=13;1
 font-3 = wuncon siji:pixelsize=10;1
 
-tray-position = right
-tray-padding = 2
-
 wm-restack = bspwm
-
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
-
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+width = 100%
+height = 27
+fixed-center = false
+tray-position = right
+tray-padding = 2
+
+
 [common/bottom]
 inherit = common/bar
-
+width = 100%
+height = 25
 bottom = true
-
 modules-center = title
+;modules-right = cpu gap memory
+;modules-left = powermenu mpd
 
-width = 50%
-height = 15
-
-tray-position =  "     "
-override-redirect = true
-offset-x = 25%
+offset-x = 0
 offset-y = 0
-
-font-0 = fixed:pixelsize=8;1
-
+font-0 = Overpass:style=light-italic:pixelsize=12;1
 
 ;--------------------------------------------------------------------;
 ; modules
 ;--------------------------------------------------------------------;
+
+;----------------------------TOP-------------------------
 [module/bspwm]
 type = internal/bspwm
 pin-workspaces = true
-label-focused = %index%
+label-focused = %name%
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.active}
 label-focused-padding = 2
-label-occupied = %index%
+label-occupied = %name%
 label-occupied-padding = 2
-label-urgent = %index%!
+label-urgent = %name%!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
-label-empty = %index%
+label-empty = %name%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 
-[module/title]
-type = internal/xwindow
-format-padding = 0
-format-foreground = ${colors.base0A}
-label = %title%
-label-maxlen = 140
-label-font   = 0
-label-empty = Empty
-label-empty-foreground = #707880
+[module/files]
+type = custom/text
+content = ""
+click-left = exec nautilus &
+
+[module/date]
+type = internal/date
+interval = 5
+date = %b %d 20%g
+time = %I:%M %p
+label = "%date%     %time%"
 
 
 [module/vpnStatus]
@@ -174,6 +167,21 @@ exec = $HOME/.config/polybar/custom/vpnStatus
 interval = 5
 format-foreground = #b5af4c
 label = %output%
+
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+format-connected-foreground = #95AEC7
+format-connected = <label-connected> <ramp-signal>
+format-disconnected-foreground = #C795AE
+format-disconnected = <label-disconnected>
+label-connected = %{A:unity-control-center network&:}%essid::10:..%%{A}
+label-disconnected = %{A:unity-control-center network&:}down%{A}
+label-wifi = %{A:nm-applet&:}%{A}
+ramp-signal-foreground = #95AEC7
+ramp-signal-0 = 
 
 
 [module/xbacklight]
@@ -191,12 +199,6 @@ bar-fill-foreground = #9f78e1
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
-
-
-[module/backlight-acpi]
-inherit = module/xbacklight
-type = internal/backlight
-card = intel_backlight
 
 
 [module/alsa]
@@ -230,37 +232,25 @@ battery = BAT0
 adapter = AC
 full-at = 98
 label-charging =  %percentage%%
-label-discharging =  %percentage%%
+label-discharging =  %percentage%%
 label-full = 
 format-charging-underline = #ff7f50
 format-discharging-underline = #FC26F5
 
 
-[module/date]
-type = internal/date
-interval = 5
-date = %b %d 20%g
-time = %I:%M %p
-label = "%date%     %time%"
+;----------------------------BOTTOM-------------------------
+[module/title]
+type = internal/xwindow
+format-padding = 0
+format-foreground = ${colors.base0C}
+label = %title%
+label-maxlen = 140
+label-font   = 0
+label-empty = Empty
+label-empty-foreground = #707880
 
 
-[module/wlan]
-type = internal/network
-interface = wlp2s0
-interval = 3.0
-format-connected-foreground = #95AEC7
-format-connected = <label-connected> <ramp-signal>
-label-connected = %essid::10:..%
-format-disconnected-foreground = #C795AE
-format-disconnected = down
-ramp-signal-foreground = #95AEC7
-ramp-signal-0 = O
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-
-
+;----------------------------OTHER-------------------------
 [module/smallgap]
 type = custom/text
 content = " "
@@ -278,15 +268,59 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 
+
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-; vim:ft=dosini
+;vim:ft=dosini
 
 
-;-------------------
-;  Not used
-;-------------------
+;----------------------------NOT USED-------------------------
+[module/memory]
+type = internal/memory
+format = <label>
+label = RAM: %gb_used%/%gb_free%
+
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label>
+label = CPU: %percentage%%
+
+
+[module/powermenu]
+type = custom/menu
+
+format-padding = 5
+
+label-open = 
+label-close = 
+
+menu-0-0 = Terminate WM
+menu-0-0-foreground = #fba922
+menu-0-0-exec = bspc quit -1
+menu-0-1 = Reboot
+menu-0-1-foreground = #fba922
+menu-0-1-exec = menu_open-1
+menu-0-2 = Power off
+menu-0-2-foreground = #fba922
+menu-0-2-exec = menu_open-2
+
+menu-1-0 = Cancel
+menu-1-0-foreground = #fba922
+menu-1-0-exec = menu_open-0
+menu-1-1 = Reboot
+menu-1-1-foreground = #fba922
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = Power off
+menu-2-0-foreground = #fba922
+menu-2-0-exec = sudo poweroff
+menu-2-1 = Cancel
+menu-2-1-foreground = #fba922
+menu-2-1-exec = menu_open-0
+
 
 [module/vpnStatus2]
 type = custom/script
@@ -306,3 +340,51 @@ type = custom/script
 exec = ~/.config/polybar/custom/rsctl -p
 interval = 5
 click-left = ~/.config/polybar/custom/rsctl -t
+
+
+[module/myBattery]
+type = custom/script
+exec = $HOME/.config/polybar/custom/myBattery
+interval = 5
+label = %output%
+format-foreground = #b5af4c
+
+
+[module/wired-network]
+type = internal/network
+interface = net0
+interval = 3.0
+label-connected =   %{T3}%local_ip%%{T-}
+label-disconnected-foreground = #66
+
+
+[module/mpd]
+type = internal/mpd
+format-online = <icon-prev> <icon-stop> <toggle> <icon-next>  <icon-repeat> <icon-random>
+;<bar-progress> <label-time>  <label-song>
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-random = 
+icon-repeat = 
+toggle-on-foreground =
+toggle-off-foreground = #55
+bar-progress-width = 45
+bar-progress-format = %{A4:mpdseek+2: A5:mpdseek-2:}%fill%%indicator%%empty%%{A A}
+bar-progress-indicator = |
+bar-progress-indicator-foreground = #ff
+bar-progress-indicator-font = 3
+bar-progress-fill = ─
+bar-progress-fill-foreground = #bb
+bar-progress-fill-font = 3
+bar-progress-empty = ─
+bar-progress-empty-font = 3
+bar-progress-empty-foreground = #44
+
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight

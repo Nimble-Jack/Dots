@@ -10,5 +10,5 @@ DP1_mode=`xrandr -q | grep -v '^e' | grep DP1 | awk '{ print $3 }' | cut -f1 -d"
 
 
 if [ "$(bspc query -M | wc -l)" -eq "2" ]; then
-  xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output DP1 --mode $DP1_mode --rotate normal --right-of eDP1
+  xrandr --output eDP1 --primary --mode 1920x1080 --rotate normal --output DP1 --mode $DP1_mode --rotate normal --left-of eDP1
 fi

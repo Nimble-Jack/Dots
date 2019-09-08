@@ -2,7 +2,7 @@
 
 # Widow Apps
 bspc desktop --focus ^5 && (opera &) && sleep 3
-bspc desktop --focus ^6 && (atom &) && sleep 5
+bspc desktop --focus ^10 && (typora &) && sleep 3 && (code &) && sleep 5
 
-bspc desktop --focus ^1 && (slack &) && sleep 10
-bspc desktop --focus ^1 && google-chrome
+bspc desktop --focus ^6 && (slack &) && sleep 10
+bspc desktop --focus ^6 && google-chrome

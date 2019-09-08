@@ -10,8 +10,11 @@
 !neofetch/
 !polybar/
 !ranger/
+!rofi/
 !sxhkd/
 !wal/
 
 # Whitelist some files
-!.xresources_symlink
+!Code/User/keybindings.json
+!Code/User/settings.json
+!xresource_file

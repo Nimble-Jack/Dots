@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Version=1.0
-Name=desktop-dimmer
-Comment=desktop-dimmer Startup Script
-Exec="/opt/Desktop Dimmer/desktop-dimmer" 
-StartupNotify=false
-Terminal=false

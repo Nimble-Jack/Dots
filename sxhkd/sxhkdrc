@@ -131,8 +131,9 @@ super + g
 	google-chrome
 
 # program launcher
-super + @space
+super + space
 	dmenu_run
+#rofi -show combi
 
 # Nautilus (file browser)
 ctrl + super + Return
@@ -140,15 +141,15 @@ ctrl + super + Return
 
 #13lock
 super + l
-	i3lock -i ~/Pictures/Wallpapers/png/mojave_enhanced.png
+	$HOME/gitHub/i3lock-multimonitor/lock
 
 # Disable touchpad
-super + F1
-	xinput --disable 15
+ctrl + space
+	$HOME/.config/sxhkd/touchpad_disable.sh
 
 # Enable touchpad
-super + alt + F1
-	xinput --enable 15
+ctrl + shift + space
+	$HOME/.config/sxhkd/touchpad_enable.sh
 
 ################################################################################
 # Media Keys
@@ -173,7 +174,7 @@ XF86AudioMute
 
 # Screenshots
 alt + super + @space
-	gnome-screenshot -a
+	flameshot gui
 
 # Fix low sound
 alt + super + s
@@ -188,6 +189,6 @@ alt + super + s
 alt + ctrl + Escape
 	bspc quit
 
-	################################################################################
-	# New
-	################################################################################
+################################################################################
+# New
+################################################################################
