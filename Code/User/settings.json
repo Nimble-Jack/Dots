@@ -1,0 +1,73 @@
+{
+    "atomKeymap.promptV3Features": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.formatOnPaste": true,
+    "python.jediEnabled": false,
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
+    "workbench.colorCustomizations": {
+        "[Material Theme Darker High Contrast]": {
+            "sideBarSectionHeader.background": "#2e3a41",
+            "sideBarSectionHeader.foreground": "#efffff",
+            "editorHoverWidget.background": "#4e6670",
+            "panel.border": "#4e6670",
+            "sideBar.border": "#4e6670"
+        }
+    },
+    "editor.rulers": [
+        99
+    ],
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 1,
+    "diffEditor.renderSideBySide": true,
+    "editor.renderWhitespace": "none",
+    "trailing-spaces.trimOnSave": true,
+    "[terraform]": {},
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pug",
+        "python",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
+    ],
+    "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback', 'FontAwesome'",
+    "editor.tokenColorCustomizations": {
+        "[Material Theme Darker High Contrast]": {
+            "comments": "#37a082",
+            "textMateRules": [
+                {
+                    "scope": "string.quoted.docstring.multi.python",
+                    "settings": {
+                        "foreground": "#37a082"
+                    }
+                }
+            ]
+        }
+    },
+    "python.autoComplete.addBrackets": true
+}
