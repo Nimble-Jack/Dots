@@ -2,11 +2,9 @@
 /*
 
 # Whitelist some directories
-!.gitignore
-!README.md
 !autostart/
 !bspwm/
-!Code/User/
+!Code/User/*.json
 !compton/
 !neofetch/
 !polybar/
@@ -16,4 +14,6 @@
 !wal/
 
 # Whitelist some files
+!.gitignore
+!README.md
 !xresource_file
