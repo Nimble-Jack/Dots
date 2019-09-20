@@ -19,7 +19,7 @@
     "explorer.confirmDelete": false,
     "window.zoomLevel": 1,
     "diffEditor.renderSideBySide": true,
-    "editor.renderWhitespace": "none",
+    "editor.renderWhitespace": "all",
     "trailing-spaces.trimOnSave": true,
     "[terraform]": {},
     "cSpell.enabledLanguageIds": [
@@ -69,5 +69,10 @@
             ]
         }
     },
-    "python.autoComplete.addBrackets": true
+    "python.autoComplete.addBrackets": true,
+    "python.dataScience.askForKernelRestart": false,
+    "editor.detectIndentation": false,
+    "cSpell.userWords": [
+        "You\\'r"
+    ]
 }
