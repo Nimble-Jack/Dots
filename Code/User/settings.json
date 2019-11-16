@@ -73,6 +73,8 @@
     "python.dataScience.askForKernelRestart": false,
     "editor.detectIndentation": false,
     "cSpell.userWords": [
-        "You\\'r"
-    ]
+        "You\\'r",
+        "nums"
+    ],
+    "workbench.iconTheme": "material-icon-theme"
 }
